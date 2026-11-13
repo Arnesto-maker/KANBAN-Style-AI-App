@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board | Arnesto Classic</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="init()">
+
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
+  <header class="top-bar" role="banner">
+    <div class="top-bar-inner">
+      <div class="brand-group">
+        <p class="badge">ARNESTO CLASSIC ARCHITECTURE</p>
+        <h1>Kanban Task-Board</h1>
+      </div>
+      <div class="top-bar-actions">
+        <span id="card-counter" class="status-pill" role="status" aria-live="polite">0 Karten im State</span>
+        <button type="button" id="btn-clear" class="btn-danger-outline" onclick="handleClearBoard()" aria-label="Alle Karten vom Board löschen">
+          Board leeren
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <section id="board" class="board-grid" role="region" aria-label="Kanban-Pipeline mit 4 Spalten"></section>
+    <output id="live-region" class="sr-only" aria-live="polite"></output>
+  </main>
+
+  <div id="edit-backdrop" class="modal-backdrop d-none" onclick="closeEditModal()">
+    <section class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-heading" onclick="stopModalClick(event)">
+      <div class="modal-header">
+        <h2 id="modal-heading">Karte bearbeiten</h2>
+        <button type="button" class="btn-delete-card" onclick="closeEditModal()" aria-label="Dialog schließen">&#10005;</button>
+      </div>
+      <p id="modal-card-id" class="task-meta"></p>
+      <form class="modal-form" onsubmit="handleEditSubmit(event)" novalidate>
+        <div class="form-field">
+          <label for="edit-title" class="field-label">Aufgabentitel</label>
+          <input id="edit-title" type="text" autocomplete="off" aria-describedby="err-edit" aria-invalid="false">
+          <p id="err-edit" class="error-msg" role="alert">Bitte 3 bis 120 Zeichen eingeben.</p>
+        </div>
+        <div class="form-field">
+          <label for="edit-priority" class="field-label">Priorität</label>
+          <select id="edit-priority" class="field-select">
+            <option value="low">Niedrig</option>
+            <option value="medium">Mittel</option>
+            <option value="high">Hoch</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeEditModal()">Abbrechen</button>
+          <button type="submit" class="btn-save">Speichern</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="js/template.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
